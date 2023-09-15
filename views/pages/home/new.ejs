@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Melawai - Finger Print Absensi</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <link rel="shortcut icon" href="/assets/img/favicon/favicon.ico" type="image/x-icon">
+</head>
+<body style="background-color: #dc373d;">
+    <div class="container">
+        <div class="card my-2">
+            <div class="card-header">
+                <div class="px-2 d-flex justify-content-between">
+                    <h6 id="current-date" class="display-6">-</h6>
+                    <h6 id="current-time" class="display-6">-</h6>
+                </div>
+            </div>
+            <div class="card-body">
+                <h6 class="display-6 text-center"><%= dotenv.APP_COMPANY %></h6>
+                <img src="https://melawai.s3-ap-southeast-1.amazonaws.com/thumb_image/linktree25.png" class="rounded mx-auto d-block" alt="logo melawai" height="150" />
+                <div class="mt-2 row">
+                    <div class="col-md-8">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label class="form-label" for="nikKaryawan">NIK</label>
+                                <input type="text" id="nikKaryawan" id="nikKaryawan" class="form-control" onkeyup="handleNik(event)" />
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label" for="karyawan">Karyawan</label>
+                                <input type="text" name="karyawan" id="karyawan" class="form-control" disabled />
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-center align-items-center flex-column" style="height: 60%">
+                            <p class="fs-1 mt-3 mb-0 pb-0" id="jenis-absensi"></p>
+                            <img src="/assets/gif/fingerprint.gif" width="100" height="100" id="fingerprint-proses" style="display: none;" />
+                            <img src="/assets/gif/check.gif" class="mt-3" width="100" height="100" id="fingerprint-success" style="display: none;" />
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="list-group">
+                            <a href="javascript:void(0)" onclick="handleActiveGroup(this)" class="list-group-item list-group-item-action fs-6" id="F2">
+                                F2 Absensi Lain Keluar
+                            </a>
+                            <a href="javascript:void(0)" onclick="handleActiveGroup(this)" class="list-group-item list-group-item-action fs-6" id="F3">
+                                F3 Absensi Lain Masuk
+                            </a>
+                            <a href="javascript:void(0)" onclick="handleActiveGroup(this)" class="list-group-item list-group-item-action fs-6" id="F12">
+                                F12 Cetak Struk Absensi
+                            </a>
+                            <a href="javascript:void(0)" onclick="handleActiveGroup(this)" class="list-group-item list-group-item-action fs-6" id="F5">
+                                F5 Absensi Masuk Kerja
+                            </a>
+                            <a href="javascript:void(0)" onclick="handleActiveGroup(this)" class="list-group-item list-group-item-action fs-6" id="F8">
+                                F8 Absensi Pulang Kerja
+                            </a>
+                            <a href="javascript:void(0)" onclick="handleActiveGroup(this)" class="list-group-item list-group-item-action fs-6" id="F6">
+                                F6 Absensi Istirahat Keluar
+                            </a>
+                            <a href="javascript:void(0)" onclick="handleActiveGroup(this)" class="list-group-item list-group-item-action fs-6" id="F7">
+                                F7 Absensi Istirahat Masuk
+                            </a>
+                            <a href="javascript:void(0)" onclick="handleActiveGroup(this)" class="list-group-item list-group-item-action fs-6" id="F9">
+                                F9 Absensi Cek Kehadiran
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <hr class="mt-4" />
+                <div class="mb-3 row">
+                    <label for="terakhirMasuk" class="col-sm-2 col-form-label">Terakhir Masuk</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" id="terakhirMasuk" disabled value="<%= resHome.lastIn ? resHome.lastIn.employee.name : '' %>" />
+                    </div>
+                    <div class="col-sm-2">
+                        <input type="text" class="form-control" id="terakhirMasukJam" disabled value="<%= resHome.lastIn ? moment(resHome.lastIn.clock_in).format('hh:mm') : '' %>" />
+                    </div>
+                </div>
+                <div class="mb-3 row">
+                    <label for="terakhirKeluar" class="col-sm-2 col-form-label">Terakhir Keluar</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" id="terakhirKeluar" disabled value="<%= resHome.lastOut ? resHome.lastOut.employee.name : '' %>" />
+                    </div>
+                    <div class="col-sm-2">
+                        <input type="text" class="form-control" id="terakhirKeluarJam" disabled value="<%= resHome.lastOut ? moment(resHome.lastOut.clock_out).format('hh:mm') : '' %>" />
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer" id="app-location">
+                Location: <%= dotenv.APP_LOCATION %>
+            </div>
+            <p id="app-timezone" hidden><%= dotenv.APP_TIMEZONE %></p>
+        </div>
+    </div>
+
+    <script src="/js/app.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
+    <script src="https://momentjs.com/downloads/moment-timezone-with-data-10-year-range.min.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', async event => {
+            setActiveGroup()
+            document.body.style.zoom="75%"
+            setInterval(() => {
+                const dateTime = new Date()
+                const days   = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu']
+                const months = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember']
+
+                const date = `${days[dateTime.getDay()]}, ${dateTime.getDate()} ${months[dateTime.getMonth()]} ${dateTime.getFullYear()}`
+                document.getElementById('current-date').innerHTML = date
+
+                const elAppTime  = document.getElementById('current-time')
+                const elTimezone = document.getElementById('app-timezone')
+                elAppTime.innerHTML = moment().tz(elTimezone.innerText).format('hh:mm:ss')
+            }, 1000)
+        })
+
+        document.onkeydown = (event) => {
+            //CTRL, R, F2, F3, F5, F6, F7, F8, F9, F12
+            const keyCodes = [17, 82, 113, 114, 116, 117, 118, 119, 120, 123]
+
+            //DISABLED RELOAD
+            if (keyCodes.includes(event.keyCode)) {
+                event.preventDefault()
+                if (event.ctrlKey) {
+                    event.returnValue = false
+                    event.keyCode = 0
+                }
+                else {
+                    event.returnValue = false
+                    event.keyCode = 0
+                }
+                setActiveListGroup(event.keyCode)
+            }
+        }
+
+        handleNik = e => {
+            const elFingerProses  = document.getElementById('fingerprint-proses')
+            const elFingerSuccess = document.getElementById('fingerprint-success')
+
+            if (e.keyCode === 13) {
+                elFingerProses.style.display = 'block'
+                const valCode = localStorage.getItem('JENIS_ABSEN')
+                if (valCode.trim() === "") {
+                    alert('Mohon tentukan jenis absen terlebih dahulu')
+                    return
+                }
+
+                document.getElementById('karyawan').value = 'Agus Suandi'
+                sendRequest('POST', '/v2/attendance', {nik: e.target.value, code: valCode})
+                .then(res => {
+                    const response = res.result
+                    if (response.status) {
+                        // document.getElementById('terakhirMasuk').value    = response.data.lastIn.employee.name
+                        // document.getElementById('terakhirMasukJam').value = moment(response.data.lastIn.clock_in).format('hh:mm')
+
+                        // if (response.data.lastOut !== null) {
+                        //     document.getElementById('terakhirKeluar').value    = response.data.lastOut.employee.name
+                        //     document.getElementById('terakhirKeluarJam').value = moment(response.data.lastOut.clock_out).format('hh:mm')
+                        // }
+                        
+                        e.target.value = ''
+                        elFingerProses.style.display = 'none'
+                        elFingerSuccess.style.display = 'block'
+
+                        setTimeout(() => {
+                            elFingerSuccess.style.display = 'none'
+                        }, 3500);
+                    }
+                    else {
+                        elFingerProses.style.display = 'none'
+                        alert(response.message)
+                    }
+                })
+                .catch(err => {
+                    console.log(err)
+                    elFingerProses.style.display = 'none'
+                })
+            }
+        }
+
+        setActiveListGroup = key => {
+            const keyCodes = {
+                113: 'F2',
+                114: 'F3',
+                116: 'F5',
+                117: 'F6',
+                118: 'F7',
+                119: 'F8',
+                120: 'F9',
+                123: 'F12'
+            }
+
+            const keys = Object.keys(keyCodes)
+            keys.forEach((keyCode, i) => {
+                if (parseInt(keyCode) === parseInt(key)) {
+                    document.getElementById(keyCodes[key]).classList.add('active')
+                    document.getElementById('jenis-absensi').innerText = document.getElementById(keyCodes[key]).innerText
+                    setJenisAbsen(keyCodes[keyCode])
+                }
+                else {
+                    document.getElementById(keyCodes[keyCode]).classList.remove('active')
+                }
+            })
+        }
+
+        handleActiveGroup = obj => {
+            setJenisAbsen(obj.id)
+            const keyCodes = [ 'F2', 'F3', 'F5', 'F6', 'F7', 'F8', 'F9', 'F12']
+            for (let i = 0; i < keyCodes.length; i++) {
+                document.getElementById(keyCodes[i]).classList.remove('active')
+            }
+
+            obj.classList.toggle('active')
+            document.getElementById('jenis-absensi').innerText = obj.innerText
+        }
+
+        setJenisAbsen = value => localStorage.setItem('JENIS_ABSEN', value)
+
+        setActiveGroup = () => {
+            if (localStorage.getItem('JENIS_ABSEN') && localStorage.getItem('JENIS_ABSEN') !== undefined) {
+                const elJenisAbsen = document.getElementById(localStorage.getItem('JENIS_ABSEN'))
+                elJenisAbsen.classList.toggle('active')
+                document.getElementById('jenis-absensi').innerText = elJenisAbsen.innerText
+            }
+        }
+    </script>
+</body>
+</html>

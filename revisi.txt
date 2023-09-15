@@ -1,0 +1,10 @@
+- session jenis absensi 
+- env file untuk set app key
+- notifikasi jika sesudah / sebelum finger
+- penambahan nama company
+
+
+5 April
+- Update karyawan saat in / out harus clear / kosong
+- Background pada apps penyesuaian warna dasar melawai
+- Trigger pada fingerPrint enroll

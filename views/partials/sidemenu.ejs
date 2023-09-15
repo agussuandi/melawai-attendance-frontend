@@ -1,0 +1,61 @@
+<aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
+    <div class="app-brand demo">
+        <a href="/" class="app-brand-link">
+            <span class="app-brand-logo demo">
+                <img src="/assets/img/icons/brands/melawai.png" alt="logo melawai" width="40" height="40" />
+            </span>
+            <span class="app-brand-text menu-text fw-bolder ms-2 fs-3">&nbsp;Absensi</span>
+        </a>
+        <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
+            <i class="bx bx-chevron-left bx-sm align-middle"></i>
+        </a>
+    </div>
+    <div class="menu-inner-shadow"></div>
+    <ul class="menu-inner py-1">
+        <li class="menu-header small text-uppercase">
+            <span class="menu-header-text">Absensi</span>
+        </li>
+        <li class="menu-item <%= sideHeader.includes('attendance/') ? 'active open' : '' %>">
+            <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons bx bx-timer"></i>
+                <div data-i18n="Absensi">Absensi</div>
+            </a>
+            <ul class="menu-sub">
+                <li class="menu-item <%= sideChild.includes('attendance/clockIn') ? 'active' : '' %>">
+                    <a href="/attendance/clockIn" class="menu-link">
+                       <div data-i18n="Absen Datang">Absen Datang</div>
+                    </a>
+                </li>
+                <li class="menu-item <%= sideChild.includes('attendance/clockOut') ? 'active' : '' %>">
+                    <a href="/attendance/clockOut" class="menu-link">
+                       <div data-i18n="Absen Pulang">Absen Pulang</div>
+                    </a>
+                </li>
+                <li class="menu-item <%= sideChild.includes('attendance/check') ? 'active' : '' %>">
+                    <a href="/attendance/check" class="menu-link">
+                       <div data-i18n="Check Absen">Check Absen</div>
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li class="menu-item <%= sideHeader.includes('fingerprint') ? 'active' : '' %>">
+            <a href="/fingerprint" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-fingerprint"></i>
+                <div data-i18n="Fingerprint">Fingerprint</div>
+            </a>
+        </li>
+        <li class="menu-item <%= sideHeader.includes('report/') ? 'active open' : '' %>">
+            <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons bx bx-file"></i>
+                <div data-i18n="Absensi">Report</div>
+            </a>
+            <ul class="menu-sub">
+                <li class="menu-item <%= sideHeader.includes('report/attendance') ? 'active' : '' %>">
+                    <a href="/report/attendance" class="menu-link">
+                        <div data-i18n="Fingerprint">Report Attendance</div>
+                    </a>
+                </li>
+            </ul>
+        </li>
+    </ul>
+</aside>

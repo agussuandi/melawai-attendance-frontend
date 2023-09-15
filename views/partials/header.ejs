@@ -1,0 +1,25 @@
+<header class="pb-3 mb-4 border-bottom">
+    <div class="d-flex justify-content-between">
+        <a href="/" class="d-flex align-items-center text-dark text-decoration-none">
+            <img src="https://melawai.s3-ap-southeast-1.amazonaws.com/thumb_image/linktree25.png" alt="melawai" width="35" height="35" />&nbsp;&nbsp;
+            <span class="fs-4">Melawai - Absensi</span>%> 
+        </a>
+        <div id="today">
+            N/A
+        </div>
+    </div>
+</header>
+
+<script>
+    const days = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu']
+    const months = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember']
+    document.addEventListener('DOMContentLoaded', event => {
+        clock()
+    })
+
+    clock = () => {
+        const date = new Date()
+        setTimeout("clock()", 1000)
+        document.getElementById('today').innerHTML = `${days[date.getDay()]}, ${date.getDate()}  ${months[date.getMonth()]} ${date.getFullYear()} ${date.getHours()} : ${date.getMinutes() < 10 ? `0${date.getMinutes()}` : date.getMinutes()}`
+    }
+</script>

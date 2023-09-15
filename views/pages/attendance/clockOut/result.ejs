@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html
+    lang="en"
+    class="light-style layout-navbar-fixed layout-menu-fixed"
+    dir="ltr"
+    data-theme="theme-default"
+    data-assets-path="../assets/"
+    data-template="vertical-menu-template-free"
+>
+<%- include('../../../partials/head') %>
+<body>
+    <div class="layout-wrapper layout-content-navbar">
+        <div class="layout-container">
+            <%- include('../../../partials/sidemenu') %>
+            <div class="layout-page">
+                <%- include('../../../partials/navbar') %>
+                <div class="content-wrapper">
+                    <div class="container-fluid flex-grow-1 container-p-y">
+                        <div class="modal fade" id="modalResult" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modalResultLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-lg">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5" id="modalResultLabel">Absen Pulang</h1>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="alert alert-primary" role="alert">
+                                            <%= result.message %>
+                                        </div>
+                                        <% if (result.status) { %>
+                                            <table class="table table-hover">
+                                                <tbody>
+                                                    <tr>
+                                                        <td>NIK</td>
+                                                        <td>:</td>
+                                                        <td><%= result.data.nik %></td>
+                                                        <td>Karyawan</td>
+                                                        <td>:</td>
+                                                        <td>Agus Suandi</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Absen Datang</td>
+                                                        <td>:</td>
+                                                        <td><%= result.data.clock_in %></td>
+                                                        <td>Absen Pulang</td>
+                                                        <td>:</td>
+                                                        <td><%= result.data.clock_out || 'N/A' %></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        <% } %>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <a href="/" class="btn btn-secondary">Tutup</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <script>
+                            document.addEventListener('DOMContentLoaded', event => {
+                                const resultModal = new bootstrap.Modal(document.getElementById('modalResult'), {})
+                                resultModal.show()
+                            })
+                        </script>
+                    </div>
+                </div>
+                <%- include('../../../partials/footer') %>
+                <div class="content-backdrop fade"></div>
+            </div>
+        </div>
+        <div class="layout-overlay layout-menu-toggle"></div>
+    </div>
+    <div id="app-manipulated-dom"></div>
+    <%- include('../../../resources/js/app') %>
+</body>
+</html>
