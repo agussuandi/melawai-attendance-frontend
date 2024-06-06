@@ -5,12 +5,12 @@ const AuthenticationService = {
     async login(payload) {
         try {
             return await axios.post(`${process.env.HOST_BACKEND}/api/v1/login`, payload)
-            .then(result => {
-                return result
-            })
-            .catch(err => {
-                console.log(err)
-            })
+                .then(result => {
+                    return result
+                })
+                .catch(err => {
+                    console.log(err)
+                })
         } catch (e) {
             return { status: false, error: e.message };
         }
@@ -22,12 +22,12 @@ const AuthenticationService = {
                     Authorization: `Bearer ${token}`
                 }
             })
-            .then(result => {
-                return result
-            })
-            .catch(err => {
-                console.log(err)
-            })
+                .then(result => {
+                    return result
+                })
+                .catch(err => {
+                    console.log(err)
+                })
         } catch (e) {
             return { status: false, error: e.message };
         }
@@ -39,12 +39,12 @@ const AuthenticationService = {
                     Authorization: `Bearer ${token}`
                 }
             })
-            .then(result => {
-                return result
-            })
-            .catch(err => {
-                console.log(err)
-            })
+                .then(result => {
+                    return result
+                })
+                .catch(err => {
+                    console.log(err)
+                })
         } catch (e) {
             return { status: false, error: e.message };
         }

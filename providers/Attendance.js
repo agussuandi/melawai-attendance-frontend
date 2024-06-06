@@ -3,7 +3,7 @@ const edge = require('edge-js')
 const attendanceServices = require("../services/AttendanceService")
 
 const demofunction = edge.func({
-    source:function() {/*
+    source: function () {/*
 
         using System;
         using System.Text;
@@ -35,7 +35,6 @@ const demofunction = edge.func({
                     return verifyStatus;
                 });
             }
-
 
             protected virtual void Init()
             {
@@ -139,12 +138,16 @@ const demofunction = edge.func({
 
                             if (result.Verified)
                             {
-                                MessageBox.Show("The fingerprint was VERIFIED", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button2, MessageBoxOptions.ServiceNotification);
+                                // MessageBox.Show("The fingerprint was VERIFIED", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button2, MessageBoxOptions.ServiceNotification);
+                                
+                                AutoClosingMessageBox.Show("The fingerprint was VERIFIED.", "Information", 1500);
                                 verifyStatus = "SUCCESS";
                             }
                             else
                             {
-                                MessageBox.Show("The fingerprint was NOT VERIFIED", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button2, MessageBoxOptions.ServiceNotification);
+                                // MessageBox.Show("The fingerprint was NOT VERIFIED", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button2, MessageBoxOptions.ServiceNotification);
+
+                                AutoClosingMessageBox.Show("The fingerprint was NOT VERIFIED.", "Information", 1500);
                                 verifyStatus = "FAILED";
                             }
                         }
@@ -184,7 +187,7 @@ const demofunction = edge.func({
                     _caption = caption;
                     _timeoutTimer = new System.Threading.Timer(OnTimerElapsed, null, timeout, System.Threading.Timeout.Infinite);
                     using(_timeoutTimer)
-                    MessageBox.Show(text, caption);
+                    MessageBox.Show(text, caption, MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button2, MessageBoxOptions.ServiceNotification);
                 }
 
                 public static void Show(string text, string caption, int timeout)
@@ -231,14 +234,14 @@ if (args.length < 2) {
     process.exit()
 }
 
-const username  = args[0]
-const code      = args[1]
-const token     = args[2]
+const username = args[0]
+const code = args[1]
+const token = args[2]
 
 initFunction = async () => {
     demofunction({ username, token }, async (err, result) => {
         if (err) throw err
-    
+
         if (result === 'SUCCESS') {
             const response = await attendanceServices.attendance(username, code, token)
             console.log(JSON.stringify(response.data))
