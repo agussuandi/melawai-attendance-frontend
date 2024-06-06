@@ -6,7 +6,7 @@ const FormData = require('form-data');
 const attendanceServices = {
     async getKaryawan(nik) {
         try {
-            return await axios.get(`${process.env}/api/v1/karyawan/${nik}`)
+            return await axios.get(`${process.env.HOST_BACKEND}/api/v1/karyawan/${nik}`)
             .then(result => {
                 return result
             })
@@ -19,7 +19,7 @@ const attendanceServices = {
     },
     async attendanceCheck(nik, token) {
         try {
-            return await axios.get(`${process.env}/api/v1/attendance/${nik}`, {
+            return await axios.get(`${process.env.HOST_BACKEND}/api/v1/attendance/${nik}`, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
@@ -36,7 +36,7 @@ const attendanceServices = {
     },
     async clockIn(username, code, token) {
         try {
-            return await  axios.post(`${process.env}/api/v1/attendance`, {nik: username, code: code, location: process.env.APP_KEY}, {
+            return await  axios.post(`${process.env.HOST_BACKEND}/api/v1/attendance`, {nik: username, code: code, location: process.env.HOST_BACKEND.APP_KEY}, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
@@ -53,7 +53,7 @@ const attendanceServices = {
     },
     async clockOut(username, code, token) {
         try {
-            return axios.put(`${process.env}/api/v1/attendance/${username}`, {nik: username, code: code, location: process.env.APP_KEY}, {
+            return axios.put(`${process.env.HOST_BACKEND}/api/v1/attendance/${username}`, {nik: username, code: code, location: process.env.HOST_BACKEND.APP_KEY}, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
@@ -68,27 +68,30 @@ const attendanceServices = {
             return { error: e.message };
         }
     },
-    async fingerPrintStore(username, token) {
-        const fileFpt = fs.createReadStream("scans\\"+ username +".txt")
-        
+    async fingerPrintStore(nik, name, token) {
+        const fileFpt = fs.createReadStream("scans\\" + nik + ".txt")
+
         let form = new FormData()
+        form.append("nik", nik)
+        form.append("name", name)
         form.append("file", fileFpt)
-        form.append("name", username)
-        
-        return axios.post(`${process.env}/api/v1/fingerPrint`, form, {
-            headers: {...form.getHeaders(),
-            Authorization: `Bearer ${token}`
-        } })
-        .then(result => {
-            return result
+
+        return axios.post(`${process.env.HOST_BACKEND}/api/v1/fingerPrint`, form, {
+            headers: {
+                ...form.getHeaders(),
+                Authorization: `Bearer ${token}`
+            }
         })
-        .catch(err => {
-            console.log({err})
-        })
+            .then(result => {
+                return result
+            })
+            .catch(err => {
+                console.log({ err })
+            })
     },
     async getAttendancePeriod(nik, token) {
         try {
-            return await axios.get(`${process.env}/api/v1/report/attendance?nik=${nik}`, {
+            return await axios.get(`${process.env.HOST_BACKEND}/api/v1/report/attendance?nik=${nik}`, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
@@ -105,7 +108,7 @@ const attendanceServices = {
     },
     async getAttendanceHome() {
         try {
-            return await axios.get(`${process.env}/api/v1/attendance?location=${process.env.APP_KEY}`, {
+            return await axios.get(`${process.env.HOST_BACKEND}/api/v1/attendance?location=${process.env.HOST_BACKEND.APP_KEY}`, {
                 headers: {
                     Authorization: `Bearer NON_TOKEN`
                 }
@@ -122,10 +125,10 @@ const attendanceServices = {
     },
     async attendance(username, code, token) {
         try {
-            return axios.post(`${process.env}/api/attendance`, {
+            return axios.post(`${process.env.HOST_BACKEND}/api/attendance`, {
                 employee_nik: username, 
                 code: code, 
-                location_code: process.env.APP_KEY
+                location_code: process.env.HOST_BACKEND.APP_KEY
             }, {
                 headers: {
                     Authorization: `Bearer ${token}`

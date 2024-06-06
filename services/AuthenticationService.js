@@ -4,7 +4,7 @@ const axios = require('axios')
 const AuthenticationService = {
     async login(payload) {
         try {
-            return await axios.post(`${process.env}/api/v1/login`, payload)
+            return await axios.post(`${process.env.HOST_BACKEND}/api/v1/login`, payload)
             .then(result => {
                 return result
             })
@@ -17,7 +17,7 @@ const AuthenticationService = {
     },
     async logout(token) {
         try {
-            return await axios.post(`${process.env}/api/v1/logout`, {}, {
+            return await axios.post(`${process.env.HOST_BACKEND}/api/v1/logout`, {}, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
@@ -34,7 +34,7 @@ const AuthenticationService = {
     },
     async checkToken(token) {
         try {
-            return await axios.post(`${process.env}/api/v1/checkToken`, {}, {
+            return await axios.post(`${process.env.HOST_BACKEND}/api/v1/checkToken`, {}, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }

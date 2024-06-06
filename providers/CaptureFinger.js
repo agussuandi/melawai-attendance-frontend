@@ -6,7 +6,7 @@ var FormData = require('form-data')
 const attendanceServices = require("../services/AttendanceService")
 
 const demofunction = edge.func({
-    source:function() {/*
+    source: function () {/*
 
         using System;
         using System.Text;
@@ -25,10 +25,10 @@ const demofunction = edge.func({
         public class Startup : DPFP.Capture.EventHandler
         {
             public static String verifyStatus = "FAIL";
-            public static String USERNAME = "";
+            public static String nik = "";
             public async Task<object> Invoke(dynamic input)
             {
-                USERNAME = input.username;
+                nik = input.nik;
                 return await Task.Run<object>(async () => {
                     Init();
                     Start();
@@ -85,7 +85,7 @@ const demofunction = edge.func({
 
                 //sample web call - begin
                 // string URI = "http://192.168.0.101:3030/staffCheckIn";
-                // string myParameters = "username=chiewfei&action=punchin";
+                // string myParameters = "nik=chiewfei&action=punchin";
 
                 // using (WebClient wc = new WebClient())
                 // {
@@ -142,26 +142,25 @@ const demofunction = edge.func({
                                     Enroller.Template.Serialize(ref serializedTemplate);
                                     string result = Convert.ToBase64String(serializedTemplate);
 
-                                    MessageBox.Show(result, "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                    // MessageBox.Show(result, "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-
-                                    string path = @"scans\\"+ USERNAME +".txt";
+                                    string path = @"scans\\"+ nik +".txt";
                                     using (StreamWriter writetext = new StreamWriter(path))
                                     {
                                         writetext.WriteLine(result);
                                     }
 
-                                    MessageBox.Show( "FingerPrint Capture Complete " + USERNAME, "Information", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button2, MessageBoxOptions.ServiceNotification);
+                                    MessageBox.Show( "FingerPrint Capture Complete " + nik, "Information", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button2, MessageBoxOptions.ServiceNotification);
                                     verifyStatus = "SUCCESS";
 
-                                    // String fileName = "scans\\"+ USERNAME +".fpt";
+                                    // String fileName = "scans\\"+ nik +".fpt";
                                     // using (FileStream fs = File.Open(fileName, FileMode.Create, FileAccess.Write)) {
                                     //     Enroller.Template.Serialize(fs);
                                     //     verifyStatus = "SUCCESS";
                                     // }
                                 break;
                                 case DPFP.Processing.Enrollment.Status.Insufficient:	// report success and stop capturing
-                                    MessageBox.Show( "Please continue rescan " + USERNAME, "Information", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button2, MessageBoxOptions.ServiceNotification);
+                                    MessageBox.Show( "Please continue rescan " + nik, "Information", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button2, MessageBoxOptions.ServiceNotification);
                                     verifyStatus = "FAILED";
                                 break;
                             }
@@ -209,18 +208,19 @@ const demofunction = edge.func({
 
 const args = process.argv.slice(2)
 
-if (args.length < 2) {
+if (args.length < 3) {
     console.log(`NIK tidak diketahui..`)
     process.exit()
 }
 
-const username  = args[0]
-const token     = args[1]
+const nik = args[0]
+const name = args[1]
+const token = args[2]
 
-demofunction({ username, token }, async (err, result) => {
+demofunction({ nik, name, token }, async (err, result) => {
     if (err) throw err
     if (result === 'SUCCESS') {
-        const response = await attendanceServices.fingerPrintStore(username, token)
+        const response = await attendanceServices.fingerPrintStore(nik, name, token)
         console.log(JSON.stringify(response.data))
     } else {
         console.log(JSON.stringify({
@@ -231,9 +231,9 @@ demofunction({ username, token }, async (err, result) => {
     }
 });
 
-// var username = "agus"
+// var nik = "agus"
 // demofunction({
-//   username,
+//   nik,
 // }, function (err, result) {
 //   if (err) {
 //     throw err;
@@ -241,12 +241,12 @@ demofunction({ username, token }, async (err, result) => {
 //   console.log(result);
 
 //   // // upload files
-//   // var newFile = fs.createReadStream("scans\\"+ username +".fpt");
+//   // var newFile = fs.createReadStream("scans\\"+ nik +".fpt");
 //   // var url = "http://192.168.0.101:3030/upload-FingerPrint"
 //   // var form = new FormData();
 //   //
 //   // form.append("file", newFile)
-//   // form.append("name", username)
+//   // form.append("name", nik)
 //   // axios.post(url,
 //   //   form,
 //   //   { headers: {...form.getHeaders()} }
