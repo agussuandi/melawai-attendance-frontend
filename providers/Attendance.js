@@ -72,7 +72,7 @@ const demofunction = edge.func({
                     {
                         Capturer.StartCapture();
                         // Console.Read();
-                        MessageBox.Show("Fingerprint reader ready, scan your fingerprint.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MessageBox.Show("Fingerprint reader ready, mohon tutup notifikasi ini jika sudah scan.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                     catch
                     {

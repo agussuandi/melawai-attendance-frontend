@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon app.js",
-    "dev:electron": "electron main.js"
+    "dev:electron": "electron main.js",
+    "dev:electron:fingerprint": "electron register-finger.js"
   },
   "author": "",
   "license": "ISC",
