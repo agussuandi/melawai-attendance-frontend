@@ -1,3 +1,3 @@
-cd /d D:\Websites\Absensi Web\frontend
+cd /d D:\EDP\frontend-absen
 
 call npm run dev:electron:fingerprint
