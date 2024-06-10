@@ -271,7 +271,7 @@
         }
 
 		getKaryawan = async nik => {
-			return await sendRequest('GET', `https://absensi.melawai.com/api/v1/karyawan/${nik}`, {})
+			return await sendRequest('GET', `/v2/karyawan/${nik}`, {})
 				.then(res => {
 					elKaryawan.value = res?.data?.name || ''
 					return res?.status

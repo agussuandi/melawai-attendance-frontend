@@ -60,6 +60,7 @@ app.get('/report/attendance', isAuthenticated, AttendanceController.index)
 app.get('/v2',  LiveAttendanceController.index)
 app.get('/v2/attendance/last', LiveAttendanceController.last)
 app.post('/v2/attendance', LiveAttendanceController.store)
+app.get('/v2/karyawan/:id', LiveAttendanceController.karyawan)
 
 app.listen(3333, () => {
     console.log(`Server running on port 3333 🚀`)
