@@ -143,7 +143,7 @@
                 const date = `${days[dateTime.getDay()]}, ${dateTime.getDate()} ${months[dateTime.getMonth()]} ${dateTime.getFullYear()}`
                 document.getElementById('current-date').innerHTML = date
 
-                elAppTime.innerHTML = moment().tz(elTimezone.innerText).format('hh:mm:ss')
+                elAppTime.innerHTML = moment().tz(elTimezone.innerText).format('HH:mm:ss')
             }, 1000)
             handleLastAttendance()
         })
