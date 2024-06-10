@@ -72,7 +72,7 @@ const demofunction = edge.func({
                     {
                         Capturer.StartCapture();
                         // Console.Read();
-                        MessageBox.Show("Fingerprint reader ready, mohon tutup notifikasi ini jika sudah scan.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MessageBox.Show("Fingerprint reader ready, silahkan scan jari anda dan mohon tutup notifikasi ini jika sudah scan.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                     catch
                     {
@@ -111,7 +111,7 @@ const demofunction = edge.func({
 
             public void OnSampleQuality(object Capture, string ReaderSerialNumber, DPFP.Capture.CaptureFeedback CaptureFeedback)
             {
-                MessageBox.Show("", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                // MessageBox.Show("", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             #endregion
 
@@ -138,16 +138,16 @@ const demofunction = edge.func({
 
                             if (result.Verified)
                             {
-                                // MessageBox.Show("The fingerprint was VERIFIED", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button2, MessageBoxOptions.ServiceNotification);
+                                // MessageBox.Show("Fingerprint berhasil diverifikasi", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button2, MessageBoxOptions.ServiceNotification);
                                 
-                                AutoClosingMessageBox.Show("The fingerprint was VERIFIED.", "Information", 1500);
+                                AutoClosingMessageBox.Show("Fingerprint berhasil diverifikasi.", "Information", 1500);
                                 verifyStatus = "SUCCESS";
                             }
                             else
                             {
-                                // MessageBox.Show("The fingerprint was NOT VERIFIED", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button2, MessageBoxOptions.ServiceNotification);
+                                // MessageBox.Show("Fingerprint tidak terdaftar / tidak terverifikasi", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button2, MessageBoxOptions.ServiceNotification);
 
-                                AutoClosingMessageBox.Show("The fingerprint was NOT VERIFIED.", "Information", 1500);
+                                AutoClosingMessageBox.Show("Fingerprint tidak terdaftar / tidak terverifikasi.", "Information", 1500);
                                 verifyStatus = "FAILED";
                             }
                         }
@@ -158,7 +158,7 @@ const demofunction = edge.func({
                     }
                     else
                     {
-                        MessageBox.Show("ARTHUR", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        // MessageBox.Show("ARTHUR", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
             }

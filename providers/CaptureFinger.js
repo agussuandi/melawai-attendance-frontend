@@ -64,7 +64,7 @@ const demofunction = edge.func({
                     try
                     {
                         Capturer.StartCapture();
-                        MessageBox.Show("Fingerprint reader ready, mohon tutup notifikasi ini jika selesai melakukan registrasi scan.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MessageBox.Show("Fingerprint reader ready, silahkan scan jari anda dan mohon tutup notifikasi ini jika selesai melakukan registrasi scan.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                     catch
                     {
@@ -118,7 +118,7 @@ const demofunction = edge.func({
 
             public void OnSampleQuality(object Capture, string ReaderSerialNumber, DPFP.Capture.CaptureFeedback CaptureFeedback)
             {
-                MessageBox.Show("", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                // MessageBox.Show("", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             #endregion
 
@@ -150,7 +150,7 @@ const demofunction = edge.func({
                                         writetext.WriteLine(result);
                                     }
 
-                                    MessageBox.Show("FingerPrint Capture Complete " + nik, "Information", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button2, MessageBoxOptions.ServiceNotification);
+                                    MessageBox.Show("FingerPrint Capture Success " + nik, "Information", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button2, MessageBoxOptions.ServiceNotification);
                                     verifyStatus = "SUCCESS";
 
                                     // String fileName = "scans\\"+ nik +".fpt";
