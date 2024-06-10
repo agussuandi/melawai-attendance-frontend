@@ -175,13 +175,13 @@
 				const lastCheckDateTime = res?.lastCheck?.attendance_at || false
 
                 elTerakhirMasuk.value = res?.lastIn?.employee_name || ''
-                elTerakhirMasukJam.value = lastInDateTime ? moment(lastInDateTime).format('hh:mm') : ''
+                elTerakhirMasukJam.value = lastInDateTime ? moment(lastInDateTime).format('HH:mm') : ''
 
 				elTerakhirKeluar.value    = res?.lastOut?.employee_name || ''
-				elTerakhirKeluarJam.value = lastOutDateTime ? moment(lastOutDateTime).format('hh:mm') : ''
+				elTerakhirKeluarJam.value = lastOutDateTime ? moment(lastOutDateTime).format('HH:mm') : ''
 
 				elTerakhirCekKehadiran.value    = res?.lastCheck?.employee_name || ''
-				elTerakhirCekKehadiranJam.value = lastCheckDateTime ? moment(lastCheckDateTime).format('hh:mm') : ''
+				elTerakhirCekKehadiranJam.value = lastCheckDateTime ? moment(lastCheckDateTime).format('HH:mm') : ''
             })
             .catch(err => {
                 console.log(err)
