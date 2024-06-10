@@ -236,14 +236,15 @@ if (args.length < 2) {
 
 const username = args[0]
 const code = args[1]
-const token = args[2]
+const notes = args[2]
+const token = args[3]
 
 initFunction = async () => {
-    demofunction({ username, token }, async (err, result) => {
+    demofunction({ username, notes, token }, async (err, result) => {
         if (err) throw err
 
         if (result === 'SUCCESS') {
-            const response = await attendanceServices.attendance(username, code, token)
+            const response = await attendanceServices.attendance(username, code, notes, token)
             console.log(JSON.stringify(response.data))
         } else {
             console.log(JSON.stringify({

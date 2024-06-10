@@ -19,9 +19,9 @@ const LiveAttendanceController = {
         return res.json(resHome.data)
     },
     async store(req, res, next) {
-        const { nik, code } = req.body
+        const { nik, code, notes } = req.body
 
-        exec(`node providers/Attendance.js ${nik} ${code} NON_TOKEN`, (error, stdout, stderr) => {
+        exec(`node providers/Attendance.js "${nik}" "${code}" "${notes}" "NON_TOKEN"`, (error, stdout, stderr) => {
             const response = stdout.replace(/\r?\n|\r/g, '')
             return res.json({
                 result: JSON.parse(response)
