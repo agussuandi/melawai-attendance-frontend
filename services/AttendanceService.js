@@ -127,7 +127,7 @@ const attendanceServices = {
         try {
             return axios.post(`${process.env.HOST_BACKEND}/api/v1/attendances`, {
                 code: code,
-                datetime: moment().tz(process.env.APP_TIMEZONE).format('YYYY-MM-DD hh:mm:ss'),
+                datetime: moment().tz(process.env.APP_TIMEZONE).format('YYYY-MM-DD HH:mm:ss'),
                 employee_nik: username,
                 location_code: process.env.APP_KEY
             }, {
