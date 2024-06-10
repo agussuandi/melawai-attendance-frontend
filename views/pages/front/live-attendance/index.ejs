@@ -288,6 +288,8 @@
             localStorage.setItem('JENIS_ABSEN', value)
             localStorage.setItem('F2_NOTE', '')
 
+            document.getElementById('f2_note').value = ''
+
             if (value === 'F2') modalF2Note.show()
             else modalF2Note.hide()
         }
