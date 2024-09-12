@@ -146,6 +146,28 @@ const attendanceServices = {
             return { error: e.message };
         }
     },
+    async cetakEmail(req) {
+        try {
+            const { nik, email } = req.body
+            return axios.post(`${process.env.HOST_BACKEND}/api/v1/attendances/cetak-email`, {
+                nik: nik,
+                email: email,
+                date: '2024-09-11'
+            }, {
+                headers: {
+                    Authorization: `Bearer NON_TOKEN`
+                }
+            })
+                .then(result => {
+                    return result
+                })
+                .catch(err => {
+                    console.log(err)
+                })
+        } catch (e) {
+            return { error: e.message };
+        }
+    },
 }
 
 module.exports = attendanceServices

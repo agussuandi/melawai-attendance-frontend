@@ -64,6 +64,10 @@ const LiveAttendanceController = {
             return res.json({ status: false, message: error?.message })
         }
     },
+    async cetakEmail(req, res) {
+        const resHome = await attendanceServices.cetakEmail(req)
+        return res.json(resHome.data)
+    },
 }
 
 module.exports = LiveAttendanceController
