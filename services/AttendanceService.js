@@ -151,8 +151,7 @@ const attendanceServices = {
             const { nik, email } = req.body
             return axios.post(`${process.env.HOST_BACKEND}/api/v1/attendances/cetak-email`, {
                 nik: nik,
-                email: email,
-                date: '2024-09-11'
+                email: email
             }, {
                 headers: {
                     Authorization: `Bearer NON_TOKEN`
